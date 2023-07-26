@@ -1,0 +1,41 @@
+name: Build Helm Chart
+on:
+    push:
+      branches:
+        - 'main'
+        - 'releases/**'
+        - 'develop'
+      paths:
+        - 'release/**'
+    workflow_dispatch:
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+    TAG_IMAGE: ghcr.io/${{ github.repository }}:1.0.1-SNAPSHOT
+jobs:
+    chart:
+        name: Build and Publish Helm Chart
+        environment: dev
+        runs-on: ubuntu-latest
+        permissions: write-all
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+            
+        - name: Configure Git
+          run: |
+            git config user.name "$GITHUB_ACTOR"
+            git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        - name: Install Helm
+          uses: azure/setup-helm@v1
+          with:
+            version: v3.8.1
+
+        - name: Run chart-releaser
+          uses: helm/chart-releaser-action@v1.4.0
+          with:
+            charts_dir: ./release
+          env:
+            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
