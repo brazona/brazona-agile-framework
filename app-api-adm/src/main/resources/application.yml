@@ -1,0 +1,29 @@
+## INFO ENDPOINT
+info:
+  name: Spring Boot Admin Server
+  description: Sistema de Monitoramento
+  version: @project.version@
+
+server:
+  port: 8087
+  servlet:
+    context-path: /admin-console
+spring:
+  boot:
+    admin:
+      client:
+        instance:
+          metadata:
+            user:
+              name: app-api-baf
+              password: baf@develop
+          management-base-url: http://localhost:8080/api/, http://localhost:8088/
+# LOG
+logging:
+  level:
+    root: info
+    web: info
+    dev.marksduarte: info
+    org.springframework: info
+  charset:
+    file: utf-8

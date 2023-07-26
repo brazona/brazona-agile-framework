@@ -5,6 +5,12 @@ server:
 spring:
   application:
     name: brazona-framework-agile-app-api
+  boot:
+    admin:
+      client:
+        instance:
+          management-base-url: http://localhost:8080/api/
+        url: http://localhost:8087
 
   ## DATA BASE CONNECT
   datasource:
