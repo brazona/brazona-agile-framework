@@ -9,14 +9,25 @@ server:
   servlet:
     context-path: /admin-console
 spring:
+  security:
+    user:
+      # Configura o login do servidor.
+      name: admin
+      password: admin
   boot:
     admin:
+      auth:
+        username: client
+        password: client
       client:
+        # Necessários para que o cliente possa se registrar na api do servidor protegido.
+        username: admin
+        password: admin
         instance:
           metadata:
             user:
-              name: app-api-baf
-              password: baf@develop
+              name: client
+              password: client
           management-base-url: http://localhost:8080/api/, http://localhost:8088/
 # LOG
 logging:
