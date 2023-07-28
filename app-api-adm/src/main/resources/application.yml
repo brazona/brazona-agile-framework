@@ -1,9 +1,3 @@
-## INFO ENDPOINT
-info:
-  name: Spring Boot Admin Server
-  description: Sistema de Monitoramento
-  version: @project.version@
-
 server:
   port: 8087
   servlet:
@@ -14,21 +8,7 @@ spring:
       # Configura o login do servidor.
       name: admin
       password: admin
-  boot:
-    admin:
-      auth:
-        username: client
-        password: client
-      client:
-        # Necessários para que o cliente possa se registrar na api do servidor protegido.
-        username: admin
-        password: admin
-        instance:
-          metadata:
-            user:
-              name: client
-              password: client
-          management-base-url: http://localhost:8080/api/, http://localhost:8088/
+
 # LOG
 logging:
   level:
@@ -38,3 +18,15 @@ logging:
     org.springframework: info
   charset:
     file: utf-8
+
+## SECURITY
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:8080/api/oauth/token
+      userAuthorizationUri: http://localhost:8080/api/oauth/authorize
+      clientId: client
+      clientSecret: secret
+    resource:
+      jwt:
+        keyValue: secret

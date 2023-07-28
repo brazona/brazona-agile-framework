@@ -41,11 +41,7 @@ spring:
             non_contextual_creation: true
 
 ## SECURITY
-security:
-  user:
-    # Configura o login do servidor.
-    name: client
-    password: client
+
 jwt:
   secret: "Develop@"
 oauth:

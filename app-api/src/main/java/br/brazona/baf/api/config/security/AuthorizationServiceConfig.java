@@ -45,10 +45,18 @@ public class AuthorizationServiceConfig extends AuthorizationServerConfigurerAda
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient(clientName)
-                .secret(passwordEncoder.encode(clientSecret))
-                .scopes("read", "write")
-                .authorizedGrantTypes("password")
-                .accessTokenValiditySeconds(86400);
+                    .secret(passwordEncoder.encode(clientSecret))
+                    .scopes("read", "write")
+                    .authorizedGrantTypes("password")
+                    .accessTokenValiditySeconds(86400)
+                .and()
+                    .withClient("actuator")
+                    .secret(passwordEncoder.encode("actuator_password"))
+                    .authorizedGrantTypes("client_credentials")
+                    .autoApprove(true)
+                    //.authorities("ADMIN")
+                    //.scopes("read", "write");
+                    .scopes("actuator");
     }
 
     @Override
