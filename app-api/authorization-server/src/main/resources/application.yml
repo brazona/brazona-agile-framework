@@ -1,0 +1,85 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: brazona-framework-agile-app-api
+  boot:
+    admin:
+      client:
+        instance:
+          management-base-url: http://localhost:8080/api/
+          metadata:
+            user:
+              name: admin
+              password: admin
+        url: http://localhost:8087/admin-console
+        username: admin
+        password: admin
+          # URL base para calcular o service-url com o qual se registrar. O caminho é inferido em tempo de execução e anexado à url base.
+          #service-base-url: http://localhost:8080/api/
+          # Essas informações são passadas ao servidor para que ele possa fazer o acesso aos endpoints do sistema cliente.
+
+                
+  ## DATA BASE CONNECT
+  datasource:
+    url: jdbc:postgresql://localhost:5433/app-api-db
+    username: develop
+    password: develop
+    driver-class-name: org.postgresql.Driver
+  ## ## DATA BASE JPA
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+## SECURITY
+
+jwt:
+  secret: "Develop@"
+oauth:
+  client:
+    name: app-api-baf
+    secret: baf@develop
+
+## SWAGGER
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tryItOutEnabled: true
+    tagsSorter: alpha
+    filter: true
+    path: docs-ui
+  api-docs:
+    path: /api-docs
+  packages-to-scan: br.brazona.baf.controllers
+openapi:
+ local-url: http://localhost:8080
+ dev-url: http://localhost:8080
+ prd-url: http://localhost:8080
+
+## ACTUATOR
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        # Liberamos todos os endpoints, mas lembre-se, em produção não se deve fazer isso.
+        include: '*'
+
+## LOGGING
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
