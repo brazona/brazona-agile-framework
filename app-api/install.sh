@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 # 1. Install App API
 echo "Starting installation of app api resources..."
 
 ## 1.1. Install Aux. Server
 echo "Running Aux. Server..."
+docker network create brazona-network
 cd ./aux-servers
 
 ### 1.1.1. Install Monitoring Server
@@ -20,6 +21,14 @@ cd ./db
 sh docker-compose --env-file ../../.env up -d
 cd ../
 echo "Done Data Base docker-compose up..."
+
+### 1.1.3. Install IDP
+echo "Running IDP docker-compose up..."
+cd ./idp
+sh docker-compose --env-file ../../.env up -d
+cd ../
+echo "Done IDP docker-compose up..."
+
 cd ../
 echo "Finished Aux. Server..."
 

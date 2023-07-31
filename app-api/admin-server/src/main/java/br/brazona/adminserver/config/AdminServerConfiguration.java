@@ -1,4 +1,4 @@
-package br.brazona.authorizationserver.adm.config;
+package br.brazona.adminserver.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerAutoConfiguration;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
@@ -22,7 +22,7 @@ public class AdminServerConfiguration extends AdminServerAutoConfiguration {
     @Bean
     @Order(0)
     @ConditionalOnMissingBean
-    public BearerAuthHeaderProvider bearerAuthHeaderProvider(@Value("${security.oauth2.client.accessTokenUri}") String accessTokenUri) {
+    public br.brazona.adminserver.config.BearerAuthHeaderProvider bearerAuthHeaderProvider(@Value("${security.oauth2.client.accessTokenUri}") String accessTokenUri) {
         ClientCredentialsResourceDetails details = new ClientCredentialsResourceDetails();
 
         //set you details here: id, clientid, secret, tokenendpoint
@@ -32,7 +32,7 @@ public class AdminServerConfiguration extends AdminServerAutoConfiguration {
         details.setGrantType("client_credentials");
         details.setScope(singletonList("actuator"));
 
-        return new BearerAuthHeaderProvider(new OAuth2RestTemplate(details));
+        return new br.brazona.adminserver.config.BearerAuthHeaderProvider(new OAuth2RestTemplate(details));
     }
 
 }

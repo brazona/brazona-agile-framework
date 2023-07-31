@@ -1,4 +1,4 @@
-package br.brazona.authorizationserver.adm.config;
+package br.brazona.adminserver.config;
 
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.web.client.HttpHeadersProvider;
