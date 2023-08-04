@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: sa
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb
 
 keycloak:
   server:
@@ -12,4 +12,5 @@ keycloak:
     adminUser:
       username: bael-admin
       password: pass
-    realmImportFile: baeldung-realm.json
+    realmImportFile: customer-realm.json
+

@@ -18,16 +18,16 @@ values('api-gateway', 'dev', 'latest', 'spring.application.name', 'api-gateway')
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'server.port', '8765');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('api-gateway', 'dev', 'latest', 'server.servlet.context-path', '/api');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'zuul.routes.user.service-id', 'users');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'zuul.routes.user.path', '/users/**');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds', 60000);
+values('api-gateway', 'dev', 'latest', 'hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds', '60000');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'ribbon.ConnectTimeout', 10000);
+values('api-gateway', 'dev', 'latest', 'ribbon.ConnectTimeout', '10000');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'ribbon.ReadTimeout', 20000);
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'jwt.secret', 'MY-JWT-SECRET');
+values('api-gateway', 'dev', 'latest', 'ribbon.ReadTimeout', '20000');

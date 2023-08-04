@@ -32,3 +32,5 @@ replay_pid*
 /eureka-server/target/
 /resource-server/target/
 /users/target/
+/authorization-server copy/
+/resource-server copy/
