@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: authentication-server
   cloud:
     config:
       uri: ${HOST_CONFIG_SERVER}
@@ -16,8 +16,3 @@ management:
         include: '*'
 encrypt:
   key: ${SECURITY-CONFIG-SERVER-ENCRYPT}
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8484/auth/realms/brazona-agile-framework

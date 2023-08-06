@@ -28,3 +28,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+eureka:
+  client:
+    fetch-registry: 'false'
+    register-with-eureka: 'false'
