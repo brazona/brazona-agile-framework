@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  keycloak:
+    image: ${KEYCLOAK_IMAGE}
+    container_name: ${KEYCLOAK_CONTAINER_NAME}
+    environment:
+      DB_VENDOR: ${DB_VENDOR}
+      DB_ADDR: ${POSTGRES_HOST}
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    ports:
+      - ${KEYCLOAK_PORT_EXTERNAL}:8080
+networks:
+  default:
+    external:
+      name: ${NETWORK}

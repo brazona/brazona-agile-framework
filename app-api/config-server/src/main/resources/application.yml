@@ -1,0 +1,34 @@
+#application.yml
+server:
+  port: '8888'
+spring:
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: 'false'
+  security:
+    user:
+      name: ${SECURITY-CONFIG-SERVER-USER}
+      password: ${SECURITY-CONFIG-SERVER-PASS}
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    platform: h2
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
+  h2:
+    console:
+      enabled: true
+encrypt:
+  key: ${SECURITY-CONFIG-SERVER-ENCRYPT}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+eureka:
+  client:
+    fetch-registry: 'false'
+    register-with-eureka: 'false'

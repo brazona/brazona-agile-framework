@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: eureka-server
+  cloud:
+    config:
+      uri: ${HOST_CONFIG_SERVER}
+      username: ${SECURITY-CONFIG-SERVER-USER}
+      password: ${SECURITY-CONFIG-SERVER-PASS}
+      fail-fast: true
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+encrypt:
+  key: ${SECURITY-CONFIG-SERVER-ENCRYPT}
