@@ -1,0 +1,103 @@
+version: '3.5'
+services:
+  prometheus:
+    image: ${PROMETHEUS_IMAGE}
+    container_name: ${PROMETHEUS_CONTAINER_NAME}
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "${PROMETHEUS_PORT_EXTERNAL}:9090"
+    labels:
+      org.label-schema.group: "monitoring"
+    networks:
+      - docker-network
+  grafana:
+    image: ${GRAFANA_IMAGE}
+    container_name: ${GRAFANA_CONTAINER_NAME}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    links:
+      - prometheus
+    ports:
+      - "${GRAFANA_PORT_EXTERNAL}:3000"
+    labels:
+      org.label-schema.group: "monitoring"
+    networks:
+      - docker-network
+  postgres:
+    image: postgres:13.2
+    container_name: pg12-data-keycloak
+    volumes:
+      - pg12-data-keycloak:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    networks:
+      - local-keycloak
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak-server-idp
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: ${POSTGRESQL_DB}
+      DB_USER: ${POSTGRESQL_USER}
+      DB_PASSWORD: ${POSTGRESQL_PASS}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    image: jboss/keycloak:${KEYCLOAK_VERSION}
+    ports:
+      - "8484:8080"
+    restart: unless-stopped
+    networks:
+      - local-keycloak
+  db:
+    image: ${POSTGRES_IMAGE}
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /data/postgres
+    volumes:
+       - ./config/script-init.sql:/docker-entrypoint-initdb.d/script-init.sql
+       - postgres_data:/data/postgres
+    ports:
+      - "${POSTGRES_PORT_EXTERNAL}:5432"
+    networks:
+      - docker-network
+    restart: unless-stopped
+  pgadmin:
+    image: ${PGADMIN_IMAGE}
+    container_name: ${PGADMIN_CONTAINER_NAME}
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT_EXTERNAL}:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - docker-network
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  postgres_data: {}
+  postgres_keycloak_data: {}
+  pg12-data-keycloak: {}
+networks:
+  local-keycloak:
+  docker-network:
+    name: ${NETWORK}
