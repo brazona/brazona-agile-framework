@@ -2,3 +2,9 @@
 /.idea/
 /.idea/
 brazona-agile-framework.code-workspace
+/app-api/core/target/
+/app-api/users/target/
+/app-api/eureka-server/target/
+/app-api/config-server/target/
+/app-api/api-gateway/target/
+/app-api/authentication-server/target/

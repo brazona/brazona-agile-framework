@@ -1,4 +1,4 @@
-package br.brazona.users.resources;
+package br.brazona.users.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.brazona.users.entities.User;
+import br.brazona.users.models.User;
 import br.brazona.users.repositories.UserRepository;
 
 @RestController

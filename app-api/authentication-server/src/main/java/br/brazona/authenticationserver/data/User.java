@@ -1,35 +1,25 @@
-package br.brazona.users.entities;
+package br.brazona.authenticationserver.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name="tb_user")
-public class User implements Serializable {
+public class User implements UserDetails, Serializable {
 	
 	
 
 private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 private Long id;
 
-
-@Column(unique = true)
 private String email;
 
 private String password;
@@ -43,12 +33,6 @@ public void setName(String name) {
 	this.name = name;
 }
 
-@ManyToMany(fetch = FetchType.EAGER)
-@JoinTable(
-		name = "tb_user_role",  // DEFINE NOME DA TABELA
-		joinColumns = @JoinColumn(name="user_id"), // DEFINE O NOME DA COLUNA REFERENTE A PRIMARY KEY DESTA TABELA
-		inverseJoinColumns = @JoinColumn(name="role_id") // DEFINE O NOME DA COLUNA REFERENTE A PRIMARY KEY DA TABELA RELACIONAL
-		)
 private Set<Role>roles = new HashSet<>();
 
 public User() {
@@ -106,6 +90,43 @@ public boolean equals(Object obj) {
 		return false;
 	User other = (User) obj;
 	return Objects.equals(id, other.id);
+}
+
+@Override
+public Collection<? extends GrantedAuthority> getAuthorities() {
+	// TODO Auto-generated method stub
+	return roles.stream().map(x -> new SimpleGrantedAuthority(x.getRoleName()))
+			.collect(Collectors.toList());
+}
+
+@Override
+public String getUsername() {
+	// TODO Auto-generated method stub
+	return email;
+}
+
+@Override
+public boolean isAccountNonExpired() {
+	// TODO Auto-generated method stub
+	return true;
+}
+
+@Override
+public boolean isAccountNonLocked() {
+	// TODO Auto-generated method stub
+	return true;
+}
+
+@Override
+public boolean isCredentialsNonExpired() {
+	// TODO Auto-generated method stub
+	return true;
+}
+
+@Override
+public boolean isEnabled() {
+	// TODO Auto-generated method stub
+	return true;
 }
 
 }

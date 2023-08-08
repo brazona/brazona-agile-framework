@@ -1,4 +1,4 @@
-package br.brazona.users.entities;
+package br.brazona.users.models;
 
 import java.io.Serializable;
 import java.util.Objects;
