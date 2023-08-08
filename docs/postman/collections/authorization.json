@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "oauth/token",
+			"name": "access_token",
 			"event": [
 				{
 					"listen": "test",
@@ -32,13 +32,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "{{OAUTH_CLIENT}}",
+							"key": "password",
+							"value": "{{auth_pass}}",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "{{OAUHT_SECRET}}",
+							"key": "username",
+							"value": "{{auth_user}}",
 							"type": "string"
 						}
 					]
@@ -50,27 +50,28 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "{{USER_USERNAME}}",
+							"value": "{{user_name}}",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "{{USER_PASSWORD}}",
+							"value": "{{user_pass}}",
 							"type": "text"
 						},
 						{
 							"key": "grant_type",
-							"value": "{{GRAND_TYPE}}",
+							"value": "{{user_grant}}",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "{{HOST-APP-API}}/oauth/token",
+					"raw": "{{host}}/authentication/oauth/token",
 					"host": [
-						"{{HOST-APP-API}}"
+						"{{host}}"
 					],
 					"path": [
+						"authentication",
 						"oauth",
 						"token"
 					]
