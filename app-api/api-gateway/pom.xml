@@ -9,9 +9,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>app-gateway</artifactId>
+    <artifactId>api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>app-gateway</name>
+    <name>api-gateway</name>
     <description>Demo project for Spring Boot</description>
 
 	<dependencies>

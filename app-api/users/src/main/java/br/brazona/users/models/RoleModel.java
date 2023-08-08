@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_role")
-public class Role implements Serializable{
+@Table(name="roles")
+public class RoleModel implements Serializable{
 
 	
 	/**
@@ -22,17 +22,17 @@ public class Role implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String roleName;
+	private String name;
 	
 	
-	public Role() {
+	public RoleModel() {
 		
 	}
 
-	public Role(Long id, String roleName) {
+	public RoleModel(Long id, String name) {
 		super();
 		this.id = id;
-		this.roleName = roleName;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -44,16 +44,16 @@ public class Role implements Serializable{
 	}
 
 	public String getRoleName() {
-		return roleName;
+		return name;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setRoleName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(roleName);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class Role implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
-		return Objects.equals(roleName, other.roleName);
+		RoleModel other = (RoleModel) obj;
+		return Objects.equals(name, other.name);
 	}
 
 	

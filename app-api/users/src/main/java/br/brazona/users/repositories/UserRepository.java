@@ -2,10 +2,9 @@ package br.brazona.users.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.brazona.users.models.User;
+import br.brazona.users.models.UserModel;
 
+public interface UserRepository extends JpaRepository<UserModel, Long> {
 
-public interface UserRepository extends JpaRepository<User, Long> {
-
-	User findByEmail(String email);
+	UserModel findByEmail(String email);
 }

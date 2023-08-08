@@ -28,7 +28,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private JwtTokenStore tokenStore;
 	@Value("${public.routes}")
 	private String[] PUBLIC_ROUTES;
-	private static final String[] PUBLIC = { "/authentication/oauth/token" };
+	private static final String[] PUBLIC = {
+			"/authentication/**"
+			, "/swagger-u/**"
+	};
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore);

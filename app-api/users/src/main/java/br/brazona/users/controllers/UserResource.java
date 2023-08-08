@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.brazona.users.models.User;
+import br.brazona.users.models.UserModel;
 import br.brazona.users.repositories.UserRepository;
 
 @RestController
@@ -19,15 +19,15 @@ public class UserResource {
 	private UserRepository repository;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findId(@PathVariable Long id) {
+	public ResponseEntity<UserModel> findId(@PathVariable Long id) {
 
-		User obj = repository.findById(id).get();
+		UserModel obj = repository.findById(id).get();
 		return ResponseEntity.ok(obj);
 	}
 	@GetMapping(value = "/search")
-	public ResponseEntity<User> findByEmail(@RequestParam String email) {
+	public ResponseEntity<UserModel> findByEmail(@RequestParam String email) {
 
-		User obj = repository.findByEmail(email);
+		UserModel obj = repository.findByEmail(email);
 		return ResponseEntity.ok(obj);
 	}
 

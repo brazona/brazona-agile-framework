@@ -13,11 +13,13 @@ values('api-gateway', 'dev', 'latest', 'spring.application.name', 'api-gateway')
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'server.port', '8080');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('api-gateway', 'dev', 'latest', 'server.servlet.contextPath', '/api');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'zuul.routes.user.service-id', 'users');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'zuul.routes.user.path', '/users/**');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'zuul.routes.authentication.service-id', 'authentication-server');
+values('api-gateway', 'dev', 'latest', 'zuul.routes.authentication.service-id', 'authentication');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'zuul.routes.authentication.path', '/authentication/**');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
@@ -28,8 +30,6 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'ribbon.ConnectTimeout', '10000');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'ribbon.ReadTimeout', '20000');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'springdoc.swagger-ui.operationsSorter', 'method');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
@@ -49,51 +49,24 @@ values('api-gateway', 'dev', 'latest', 'baf.openapi.dev-url', 'http://localhost:
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'baf.openapi.prod-url', 'https://bezkoder-api.com');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'oauth.client.name', 'myappname123');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'oauth.client.secret', 'myappsecret123');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('api-gateway', 'dev', 'latest', 'jwt.secret', 'MY-JWT-SECRET');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'public.routes', '{"/authorization/oauth/token"}');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'logging.level.org.springframework.security', 'DEBUG');
--- AUTHENTICATION SERVER
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'spring.application.name', 'authentication-server');
+values('api-gateway', 'dev', 'latest', 'oauth.client.name', 'DEVELOP_WUhS4Z7brQ');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'server.port', '${PORT:0}');
+values('api-gateway', 'dev', 'latest', 'oauth.client.secret', 'KM849FSR3I9FNC9OTBSR');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds', '60000');
+values('api-gateway', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'ribbon.ConnectTimeout', '10000');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'ribbon.ReadTimeout', '20000');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'eureka.instance.instance-id', '${spring.application.name}:${spring.application.instance_id:${random.value}}');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'oauth.client.name', 'myappname123');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'oauth.client.secret', 'myappsecret123');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'jwt.secret', 'MY-JWT-SECRET');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('authentication-server', 'dev', 'latest', 'logging.level.org.springframework.security', 'DEBUG');
+values('api-gateway', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
 -- USERS
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'spring.application.name', 'users');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'server.port', '${PORT:0}');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('users', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'eureka.instance.instance-id', '${spring.application.name}:${spring.application.instance_id:${random.value}}');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('users', 'dev', 'latest', 'oauth.client.name', 'myappname123');
-INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
-values('users', 'dev', 'latest', 'oauth.client.secret', 'myappsecret123');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'spring.liquibase.url', 'jdbc:postgresql://localhost:5432/brazona-agile-framework');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
@@ -122,3 +95,26 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults', 'false');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'logging.level.org.springframework.security', 'DEBUG');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('users', 'dev', 'latest', 'oauth.client.name', 'DEVELOP_WUhS4Z7brQ');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('users', 'dev', 'latest', 'oauth.client.secret', 'KM849FSR3I9FNC9OTBSR');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('users', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('users', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
+-- AUTHENTICATION
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'server.port', '${PORT:0}');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'eureka.instance.instance-id', '${spring.application.name}:${spring.application.instance_id:${random.value}}');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'logging.level.org.springframework.security', 'DEBUG');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'oauth.client.name', 'DEVELOP_WUhS4Z7brQ');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'oauth.client.secret', 'KM849FSR3I9FNC9OTBSR');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');

@@ -23,7 +23,7 @@
 		<module>config-server</module>
 		<module>eureka-server</module>
 		<module>api-gateway</module>
-		<module>authentication-server</module>
+		<module>authentication</module>
 		<module>users</module>
 		<module>core</module>
 	</modules>

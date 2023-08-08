@@ -1,4 +1,4 @@
-package br.brazona.authenticationserver.config;
+package br.brazona.authentication.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,24 +12,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-	@Override
-	@Autowired
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-	}
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Override
-	@Bean
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
-	
-	
-	
+    @Override
+    @Autowired
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+
+
 }

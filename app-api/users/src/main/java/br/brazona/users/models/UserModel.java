@@ -17,8 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_user")
-public class User implements Serializable {
+@Table(name="users")
+public class UserModel implements Serializable {
 	
 	
 
@@ -45,17 +45,17 @@ public void setName(String name) {
 
 @ManyToMany(fetch = FetchType.EAGER)
 @JoinTable(
-		name = "tb_user_role",  // DEFINE NOME DA TABELA
+		name = "user_role",  // DEFINE NOME DA TABELA
 		joinColumns = @JoinColumn(name="user_id"), // DEFINE O NOME DA COLUNA REFERENTE A PRIMARY KEY DESTA TABELA
 		inverseJoinColumns = @JoinColumn(name="role_id") // DEFINE O NOME DA COLUNA REFERENTE A PRIMARY KEY DA TABELA RELACIONAL
 		)
-private Set<Role>roles = new HashSet<>();
+private Set<RoleModel>roles = new HashSet<>();
 
-public User() {
+public UserModel() {
 	
 }
 
-public User(Long id, String email, String password) {
+public UserModel(Long id, String email, String password) {
 	super();
 	this.id = id;
 	this.email = email;
@@ -87,7 +87,7 @@ public void setPassword(String password) {
 }
 
 
-public Set<Role> getRoles() {
+public Set<RoleModel> getRoles() {
 	return roles;
 }
 
@@ -104,7 +104,7 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	User other = (User) obj;
+	UserModel other = (UserModel) obj;
 	return Objects.equals(id, other.id);
 }
 
