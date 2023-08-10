@@ -18,8 +18,39 @@ scrape_configs:
     static_configs:
     - targets: ['127.0.0.1:9090']
 
-  - job_name: 'Health Check'
+  - job_name: 'Health Check CONFIG SERVER'
+    metrics_path: '/actuator/prometheus'
+    #scrape_interval: 5s
+    basic_auth:
+      username: 'baf_ITHBJ'
+      password: 'mk0s1GGEdR'
+    static_configs:
+    - targets: [ 'host.docker.internal:8888' ]
+
+  - job_name: 'Health Check EUREKA SERVER'
+    metrics_path: '/actuator/prometheus'
+    #scrape_interval: 5s
+    static_configs:
+    - targets: [ 'host.docker.internal:8761' ]
+
+  - job_name: 'Health Check API GATEWAY'
     metrics_path: '/api/actuator/prometheus'
     #scrape_interval: 5s
     static_configs:
     - targets: ['host.docker.internal:8080']
+
+  - job_name: 'Health Check AUTHENTICATION'
+    metrics_path: '/api/authentication/actuator/prometheus'
+    #scrape_interval: 5s
+    basic_auth:
+      username: 'DEVELOP_WUhS4Z7brQ'
+      password: 'KM849FSR3I9FNC9OTBSR'
+
+    static_configs:
+      - targets: [ 'host.docker.internal:8080' ]
+
+  - job_name: 'Health Check USERS'
+    metrics_path: '/api/users/actuator/prometheus'
+    #scrape_interval: 5s
+    static_configs:
+      - targets: [ 'host.docker.internal:8080' ]

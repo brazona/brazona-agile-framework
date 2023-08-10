@@ -7,6 +7,8 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('eureka-server', 'dev', 'latest', 'eureka.client.register-with-eureka', 'false');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('eureka-server', 'dev', 'latest', 'eureka.client.fetch-registry', 'false');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('eureka-server', 'dev', 'latest', 'management.endpoints.web.exposure.include', 'health,info,prometheus');
 -- API GATEWAY
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'spring.application.name', 'api-gateway');
@@ -41,6 +43,8 @@ values('api-gateway', 'dev', 'latest', 'springdoc.swagger-ui.filter', 'true');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'springdoc.swagger-ui.path', 'docs-ui');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('api-gateway', 'dev', 'latest', 'springdoc.swagger-ui.path', 'docs-ui');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'springdoc.api-docs.path', '/api-docs');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'springdoc.packages-to-scan', 'br.brazona.apigateway');
@@ -60,6 +64,8 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('api-gateway', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('api-gateway', 'dev', 'latest', 'management.endpoints.web.exposure.include', 'health,info,prometheus');
 -- USERS
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'spring.application.name', 'users');
@@ -103,6 +109,8 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('users', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('users', 'dev', 'latest', 'management.endpoints.web.exposure.include', 'health,info,prometheus');
 -- AUTHENTICATION
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('authentication', 'dev', 'latest', 'server.port', '${PORT:0}');
@@ -118,3 +126,23 @@ INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('authentication', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
 INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
 values('authentication', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('authentication', 'dev', 'latest', 'management.endpoints.web.exposure.include', 'health,info,prometheus');
+-- ZIPKIN SERVER
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'server.port', '${PORT:0}');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'eureka.instance.instance-id', '${spring.application.name}:${spring.application.instance_id:${random.value}}');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'logging.level.org.springframework.security', 'DEBUG');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'oauth.client.name', 'DEVELOP_WUhS4Z7brQ');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'oauth.client.secret', 'KM849FSR3I9FNC9OTBSR');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'jwt.secret', '4Z3POIKX6EXFQ07TTPLF');
+INSERT INTO PROPERTIES( APPLICATION, PROFILE, LABEL, KEY, VALUE)
+values('zipkin', 'dev', 'latest', 'eureka.client.service-url.defaultZone', 'http://localhost:8761/eureka');
+
+
+

@@ -28,9 +28,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private JwtTokenStore tokenStore;
 	@Value("${public.routes}")
 	private String[] PUBLIC_ROUTES;
+
+	private static final String HOST_PROMETHEUS = "http://localhost:9090";
 	private static final String[] PUBLIC = {
 			"/authentication/**"
 			, "/swagger-u/**"
+	};
+	private static final String[] ACTUATOR = {
+			"/actuator/prometheus"
+			,"/users/actuator/prometheus"
+			,"/authentication/actuator/prometheus"
 	};
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -41,6 +48,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
+				.antMatchers(ACTUATOR).permitAll()
 		.antMatchers(PUBLIC).permitAll()
 		.anyRequest().authenticated();
 		http.cors().configurationSource(corsConfigurationSource());
