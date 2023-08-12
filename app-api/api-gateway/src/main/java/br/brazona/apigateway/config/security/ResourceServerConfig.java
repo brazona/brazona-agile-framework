@@ -4,12 +4,10 @@ package br.brazona.apigateway.config.security;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -26,10 +24,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
 	private JwtTokenStore tokenStore;
-	@Value("${public.routes}")
-	private String[] PUBLIC_ROUTES;
-
-	private static final String HOST_PROMETHEUS = "http://localhost:9090";
 	private static final String[] PUBLIC = {
 			"/authentication/**"
 			, "/swagger-u/**"
