@@ -1,21 +1,175 @@
 body{
+    background-image: url("../../../assets/background-login.png");
     width: 100%;
-    height: 100%;
-    background-size: cover; /* Not to be confused with `auto auto` */
-    background-repeat: no-repeat;
-    background-image: url("../../../assets/background.png");
-}
-
-.background{
-    background-position: 100% 100%;
-    background-size: 100% 100%; /*Not to be confused with `auto auto` */
-    background-repeat: no-repeat;
-    background-image: url("../../../assets/background.png");
+    height: 660px;
+    background-position: center;
 }
 .container{
+    width: 60%;
+    height: 30%;
+    display: flex;
+    justify-content: center; /* Alinhamento horizontal */
+    align-items: center; /* Alinhamento vertical */
+}
+form{
+    text-align: center;
+    width: 80%;
+    height: 100%;
+    background-color: rgb(9, 219, 68, 0.28);
+    border: 5px solid #FBF6F6;
+    border-radius: 33px;
+}
+button{
+    color: #FFFBFB;
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    font-size: 35px;
+    height: 60%;
+    margin-top: 5%;
+    border-radius: 10px;
+    background-color: #09DB44;
+}
+label{
+    font-size: 30px;
+    color: #FFFBFB;
+    font-family: 'Lora', serif;   
+}
+button:hover{
+    color: #09DB44;
+    background-color: #FFFBFB;
+}
+.user-field{
+    background-color: rgb(9, 219, 68, 0.41);
+    color: #FFFBFB;
+    font-family: 'Lora', serif;
+    text-align: center;
+    height: 58%;
+
+}
+.pass-field{
+    background-color: rgb(9, 219, 68, 0.41);
+    color: #FFFBFB;
+    font-family: 'Lora', serif;
+    text-align: center;
+    height: 58%;
+}
+.logotipo{
+    text-align: center;
+    color: #FFFBFB;
+    font-family: 'Lora', serif;
     width: 100%;
-    height: 100%;   
+    height: 40%;
+    padding-top: 15%;
 }
-.container p{
-    color: aliceblue;
+.logotipo-text{
+    width: 50%;
+    height: 80%;
 }
+.logotipo-text h2{
+    text-align: left;
+    font-size: 50px;
+
+}
+.logotipo-text h1{
+    text-align: right;
+    font-weight: bold;
+    font-size: 45px;
+}
+.container-img{
+    background-color: black;
+    width: 100%;
+    justify-content: center; /* Alinhamento horizontal */
+    align-items: center; /* Alinhamento vertical */
+    text-align: center;
+}
+.container-img2{
+    width: 25%;
+}
+.container-img2 img{
+    float: right;
+    max-width:35px;
+    max-height:35px;
+    width: auto;
+    height: auto;
+}
+
+.container-img1{
+    width: 52%;
+    float: right;
+}
+.container-img1 img{
+    max-width:35px;
+    max-height:35px;
+    width: auto;
+    height: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
