@@ -5,9 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
-
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
+import { Guard } from './guards/guard.service';
 
 @NgModule({
   imports: [
@@ -18,18 +16,9 @@ import { HeaderComponent } from './components/header/header.component';
     RouterModule
   ],
   declarations: [
-    FooterComponent,
-    HeaderComponent
   ],
   exports:[
-    // shared modules
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-
-    // shared components
-    FooterComponent,
-    HeaderComponent
-  ]
+  ],
+  providers: [Guard],
 })
-export class CoreModule { }
+export class ServicesModule { }

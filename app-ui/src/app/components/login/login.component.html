@@ -13,15 +13,15 @@
     <div class="container">
         <form class="row g-3 justify-content-evenly">
             <div class="col-md-6">
-                <label for="exampleFormControlTextarea1" class="form-label">USER</label>
-                <input type="text" class="form-control user-field">
+                <label class="active form-label" for="usuario">USER</label>
+                <input [(ngModel)]="usuario.nome" id="usuario" type="text" class="validate form-control user-field" [ngModelOptions]="{standalone: true}" required="">
             </div>
             <div class="col-md-6">
-                <label for="exampleFormControlTextarea1" class="form-label">PASS</label>
-                <input type="password" class="form-control pass-field">
+                <label class="active form-label" for="senha">PASS</label>
+                <input [(ngModel)]="usuario.senha" type="password" class="form-control pass-field" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="d-grid gap-1 col-12 mx-auto">
-                <button type="button" rows="1" class="btn btn-outline-success">LOGAR</button>
+                <button type="button submit" name="action" (click)="fazerLogin()" rows="1" class="btn btn-outline-success">LOGAR</button>
             </div>
         </form> 
     </div>
