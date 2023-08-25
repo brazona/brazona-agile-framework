@@ -3,10 +3,6 @@ import { HttpInterceptor } from '@angular/common/http';
 import { HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, retry, throwError } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
-import { EnumToast } from 'src/app/enums/toast';
-import { ToastService } from '../toast/toast.service';
-import { BaseService } from '../base/base.service';
-import { EventTypes } from 'src/app/models/event-types.model';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor  {

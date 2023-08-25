@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EventTypes } from 'src/app/models/event-types.model';
+import { EventTypes } from 'src/app/enums/event-types.model';
 import { ToastService } from '../../services/toast/toast.service';
 import { EnumToast } from 'src/app/enums/toast';
 import { EnumToastTitle } from 'src/app/enums/toast-title';

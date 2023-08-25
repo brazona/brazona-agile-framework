@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { EventTypes } from '../../models/event-types.model';
-import { ToastEvent } from '../../models/toast-event.model';
+import { EventTypes } from '../../enums/event-types.model';
+import { IToastEvent } from '../../models/toast-event.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
-  toastEvents: Observable<ToastEvent>;
-  private _toastEvents = new Subject<ToastEvent>();
+  toastEvents: Observable<IToastEvent>;
+  private _toastEvents = new Subject<IToastEvent>();
 
   constructor() {
     this.toastEvents = this._toastEvents.asObservable();

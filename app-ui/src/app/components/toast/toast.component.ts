@@ -2,7 +2,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {Toast} from 'bootstrap'
 import { fromEvent, take } from 'rxjs';
-import { EventTypes } from '../../models/event-types.model';
+import { EventTypes } from '../../enums/event-types.model';
 
 @Component({
   selector: 'app-toast',

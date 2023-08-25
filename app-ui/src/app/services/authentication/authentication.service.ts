@@ -2,9 +2,8 @@ import { Router } from '@angular/router';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable} from 'rxjs';
 
-
 import { Usuario } from '../../models/user';
-import { EventTypes } from '../../models/event-types.model';
+import { EventTypes } from '../../enums/event-types.model';
 import { ToastService } from '../toast/toast.service';
 import { BaseService } from '../base/base.service';
 
@@ -84,14 +83,14 @@ export class AuthenticationService extends BaseService{
     return moment().isBefore(this.getExpiration());
   }
 
-  isLoggedOut() {
+  public isLoggedOut() {
     return !this.isLoggedIn();
   }
 
- getExpiration() {
+ public getExpiration() {
     return moment(localStorage.getItem("expires_at"));
   }
-  isAthentication(){
+  public isAthentication(){
     return this.verifyTokenStorage();
   }
   private verifyTokenStorage():boolean{
@@ -100,12 +99,12 @@ export class AuthenticationService extends BaseService{
     }
     return this.isUserAuth;
   }
-  builderBody(user:Usuario){
+  private builderBody(user:Usuario){
     this.body.grant_type = this.env.APP_API.GRANT
     this.body.username = user.nome;
     this.body.password = user.senha;
   }
-  builderHeader64(){
+  private builderHeader64(){
     this.authBase64 = window.btoa(this.env.APP_API.AUTH_USER + ':' + this.env.APP_API.AUTH_PASS);
   }
  

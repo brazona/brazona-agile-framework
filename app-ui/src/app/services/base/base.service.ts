@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { EventTypes } from 'src/app/models/event-types.model';
+import { Injectable } from '@angular/core';
+import { EventTypes } from 'src/app/enums/event-types.model';
 import { ToastService } from '../../services/toast/toast.service';
 import { EnumToast } from 'src/app/enums/toast';
 import { EnumToastTitle } from 'src/app/enums/toast-title';
@@ -17,7 +17,6 @@ export class BaseService {
   }
   private type: EventTypes;
   private message: EnumToast;
-  private httpError: HttpErrorResponse;
   
   showToastSuccess(response:HttpResponse<any>) {
     this.builderSucessNotif(response);
@@ -81,11 +80,14 @@ export class BaseService {
         }
   }
   private builderSucessNotif(response: HttpResponse<any>){
-    
+
+    switch ( response.status ) {
+      case 200:
+        this.type = EventTypes.Success
+        this.message = EnumToast.authSuccess
+        break;
     }
   };
-
-
-  
+}
   
 

@@ -11,16 +11,12 @@ export class Guard implements CanActivate, CanLoad {
   constructor(
     private authService: AuthenticationService,
     private router: Router
-  ) {
-
-   }
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) : Observable<boolean> | boolean {
-
-
     return this.verificarAcesso();
   }
 
