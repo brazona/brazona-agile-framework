@@ -10,6 +10,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent,
         canActivate: [Guard] 
     },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, {useHash: true})],

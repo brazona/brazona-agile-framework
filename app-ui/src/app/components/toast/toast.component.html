@@ -1,6 +1,7 @@
+
 <div
   #toastElement
-  class="toast fade toast-width mt-2"
+  class="toast fade toast-width mt-2 toast align-items-center"
   [ngClass]="type"
   role="alert"
   aria-live="assertive"
@@ -11,4 +12,5 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="hide()"></button>
   </div>
   <div class="toast-body">{{ message }}</div>
+  
 </div>

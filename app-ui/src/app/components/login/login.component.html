@@ -11,18 +11,58 @@
         </div>
     </div>
     <div class="container">
-        <form class="row g-3 justify-content-evenly">
+        <form [formGroup]="registerForm"  class="form row g-3 justify-content-evenly">
             <div class="col-md-6">
-                <label class="active form-label" for="usuario">USER</label>
-                <input [(ngModel)]="usuario.nome" id="usuario" type="text" class="validate form-control user-field" [ngModelOptions]="{standalone: true}" required="">
+                <label class="active form-label" for="user">USER</label>
+                <input [(ngModel)]="user" name="user" formControlName="user" id="user" type="text" class="validate form-control user-field" *ngIf="!registerFormControl.user.errors; else userFieldRequired" (keyup)="onChangeField()">
+                <div *ngIf=registerFormControl.user.errors>
+                    <span class="required-field-span">Requerid User</span>
+                </div>
+                <div id="user" class="invalid-feedback">
+                    Please choose a username.
+                </div>
+                <ng-template #userFieldRequired>
+                    <input autofocus formControlName="user" type="text" class="form-control user-field required-field-border" (keyup)="onChangeField()">
+                </ng-template>
             </div>
             <div class="col-md-6">
-                <label class="active form-label" for="senha">PASS</label>
-                <input [(ngModel)]="usuario.senha" type="password" class="form-control pass-field" [ngModelOptions]="{standalone: true}">
+                <label class="active form-label" for="pass">PASS</label>
+                <input [(ngModel)]="pass" name="pass" id="pass" formControlName="pass" type="password" class="form-control pass-field" *ngIf="!registerFormControl.pass.errors; else passFieldRequerid" (keyup)="onChangeField()">
+                <div *ngIf=registerFormControl.pass.errors>
+                    <span class="required-field-span">Requerid Pass</span>
+                </div>
+                <ng-template #passFieldRequerid>
+                    <input formControlName="pass" type="password" class="form-control pass-field required-field-border" (keyup)="onChangeField()">
+                </ng-template>
             </div>
             <div class="d-grid gap-1 col-12 mx-auto">
-                <button type="button submit" name="action" (click)="fazerLogin()" rows="1" class="btn btn-outline-success">LOGAR</button>
+                <!---<div [ngSwitch]="[state]">
+                    <button *ngSwitchCase="'VALIDATED'" type="button submit" name="action" (click)="fazerLogin()" rows="1" class="btn btn-outline-success">LOGAR</button>
+                    <button *ngSwitchCase="'REQUERID'" type="button submit" name="action" rows="1" class="btn btn-outline-success btn-disable">LOGAR</button>
+                    <button *ngSwitchCase="'WAITING'" class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div> 
+                <button *ngIf="registerForm.valid; else notSubmit" type="button submit" name="action" (click)="fazerLogin()" rows="1" class="btn btn-outline-success">LOGAR</button>
+                <ng-template #notSubmit>
+                    <button type="button submit" name="action" rows="1" class="btn btn-outline-success btn-disable">LOGAR</button>
+                </ng-template>
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <span class="sr-only">Loading...</span>
+                </button> -->
+                <button id="button-logar" type="button submit" name="action" (click)="fazerLogin()" rows="1" class="btn btn-outline-success btn-disable">LOGAR</button>
+                <button id="button-load" class="btn btn-primary btn-hidden" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
             </div>
+            
         </form> 
     </div>
     <div class="container-img">
@@ -30,4 +70,5 @@
             <img src="../../../assets/circulo-2.png" />
         </div>
     </div>
+    
 </body>

@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-development": "ng build --configuration development"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +22,9 @@
     "@popperjs/core": "^2.11.8",
     "@rxjs/rx": "^4.1.0",
     "bootstrap": "^5.3.1",
+    "class-transformer": "^0.5.1",
     "jquery": "^3.7.0",
+    "moment": "^2.29.4",
     "ngx-bootstrap": "^11.0.2",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",

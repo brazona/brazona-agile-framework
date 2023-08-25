@@ -6,6 +6,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable()
 export class Guard implements CanActivate, CanLoad {
 
+  isValid:boolean;
+
   constructor(
     private authService: AuthenticationService,
     private router: Router
@@ -18,26 +20,21 @@ export class Guard implements CanActivate, CanLoad {
     state: RouterStateSnapshot
   ) : Observable<boolean> | boolean {
 
-    console.log('AuthGuard');
 
     return this.verificarAcesso();
   }
 
   private verificarAcesso(){
-    debugger
-    if (this.authService.usuarioEstaAutenticado()){
-      return true;
+    this.isValid = true;
+    if (!this.authService.isAthentication()) {
+        this.isValid = false;
+        this.router.navigate(['/login']);
     } 
-
-    this.router.navigate(['/login']);
-
-    return false;
+    return this.isValid;
   }
 
-  	canLoad(route: Route): Observable<boolean>|Promise<boolean>|boolean {
-      console.log('canLoad: verificando se usuário pode carregar o cod módulo');
-
-      return this.verificarAcesso();
-    }
+  canLoad(route: Route): Observable<boolean>|Promise<boolean>|boolean {
+    return this.verificarAcesso();
+  }
 
 }

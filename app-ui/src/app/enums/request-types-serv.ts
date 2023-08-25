@@ -1,0 +1,6 @@
+export enum EnumRequestTypesServ {
+    ISWAITING = "WAITING",
+    ISFINISHING = "FINISHING",
+    ISVALIDATED = "VALIDATED",
+    ISREQUERID = "REQUERID",
+}
