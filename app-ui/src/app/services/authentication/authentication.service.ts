@@ -30,8 +30,8 @@ export class AuthenticationService extends BaseService{
   mostrarMenuEmitter = new EventEmitter<boolean>();
   statusServ: Observable<boolean>;
   notificacoesLength$: Observable<number>;
-   constructor(private router: Router, toastService:ToastService, private http: HttpClient) {
-    super(toastService)
+   constructor(router: Router, toastService:ToastService, private http: HttpClient) {
+    super(toastService, router)
   }
 
   login(user: Usuario): Observable <any>{
@@ -54,6 +54,7 @@ export class AuthenticationService extends BaseService{
       )
       .subscribe(
         res =>{
+          debugger
           let body = plainToClass(Token, res.body);
           this.setSession(body);
           this.router.navigate(['/home']);

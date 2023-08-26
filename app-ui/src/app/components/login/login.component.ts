@@ -17,12 +17,18 @@ export class LoginComponent implements OnInit {
   usuario: Usuario = new Usuario();
   formLogin: FormGroup;
   registerForm: FormGroup;
-  submitted = false;
-  isValid:boolean;
   state:string;
   user:string
   pass:string
-  isREadOnly:boolean = false
+
+  private bt_login:any
+  private bt_load:any
+  private pass_field:any
+  private user_field:any
+  private field_span_user:any
+  private field_span_pass:any
+
+  
   constructor(
     private authService: AuthenticationService, 
     private formBuilder: FormBuilder, 
@@ -32,7 +38,15 @@ export class LoginComponent implements OnInit {
   
   ngOnInit(): void {
     this.verifyAccess();
-    this.state = EnumRequestTypesServ.ISREQUERID
+    this.onChangeStatus(EnumRequestTypesServ.ISREQUERID);
+
+    this.bt_login = document.getElementById("button-logar")
+    this.bt_load = document.getElementById("button-load")
+    this.pass_field = document.querySelector("#pass")
+    this.user_field = document.querySelector("#user")
+    this.field_span_user = document.querySelector("#required-field-span-user")
+    this.field_span_pass = document.querySelector("#required-field-span-pass")
+
     this.registerForm = this.formBuilder.group({
       user: ['', [Validators.required]],
       pass: ['', [Validators.required]],
@@ -40,73 +54,71 @@ export class LoginComponent implements OnInit {
   }
 
   fazerLogin(){
-    this.submitted = true;
-    this.isValid = false
     this.onChangeStatus(EnumRequestTypesServ.ISWAITING);
     if (this.registerForm.valid) {
         this.usuario.nome = this.user;
         this.usuario.senha = this.pass;
-        this.isValid = true
         this.authService.login(this.usuario).subscribe(
           res =>{
-            console.log(res);
             if(res == true){
               this.onChangeStatus(EnumRequestTypesServ.ISREQUERID);
               this.user ='';
               this.pass ='';
             }
-          });
+          }
+        );
     }
-    
   }
-  get registerFormControl() {
-    return this.registerForm.controls;
-  }
-  
   onChangeField(){
-
+    console.log(this.state);
     if(this.registerForm.valid){
       this.onChangeStatus(EnumRequestTypesServ.ISVALIDATED);
-    }    
+    }
   }
-  focusField(elementId: string){
-    const input = document.getElementById(
-      elementId,
-    ) as HTMLInputElement | null;
-      console.log(input);
-      input?.focus
-  }
-  private onChangeStatus(newStatus:string){
-    this.state = newStatus;
+  private onChangeStatus(status:string){
+    this.state = status;
     this.updateButtom();
   }
   private updateButtom(){
-    
-    let buttom = document.getElementById("button-logar")
-    let buttomLoad = document.getElementById("button-load")
-    //let userField = document.getElementById("user")
-    let passField = document.querySelector("#pass")
-    let userField = document.querySelector("#user")
-    if(this.registerForm.valid){
-      buttom?.classList.remove('btn-disable');
-    }
-    if(this.state == "WAITING"){
-      buttom?.classList.add('btn-hidden');
-      buttomLoad?.classList.remove('btn-hidden');
-      this.isREadOnly = true;
-      userField?.setAttribute("disabled", "disabled");
-      passField?.setAttribute("disabled", "disabled");
-    }
-    if(this.state == "REQUERID"){
-      this.isREadOnly = false;
-      buttom?.classList.add('btn-disable');
-      buttom?.classList.remove('btn-hidden');
-      buttomLoad?.classList.add('btn-hidden');
+    switch (this.state) {
+      case "WAITING":
+        this.statusWaitting();
+        break;
+      case "VALIDATED":
+        this.statusValid();
+        break;
+      default:
+        this.statusRequerid();
+        break;
     }
   }
   private verifyAccess(){
     if (this.authService.isAthentication()) {
       this.router.navigate(['/home']);
     }
+  }
+  private statusWaitting(){
+    this.bt_login?.classList.add('btn-hidden');
+    this.bt_load?.classList.remove('btn-hidden');
+    this.user_field?.setAttribute("disabled", "disabled");
+    this.pass_field?.setAttribute("disabled", "disabled");
+    this.field_span_pass?.classList.add('btn-hidden');
+    this.field_span_user?.classList.add('btn-hidden');
+    
+  }
+  private statusRequerid(){
+    this.bt_login?.classList.add('btn-disable');
+    this.bt_login?.classList.remove('btn-hidden');
+    this.bt_load?.classList.add('btn-hidden');
+    this.user_field?.removeAttribute("disabled");
+    this.pass_field?.removeAttribute("disabled");
+    this.field_span_pass?.classList.remove('btn-hidden');
+    this.field_span_user?.classList.remove('btn-hidden');
+    
+  }
+  private statusValid(){
+    this.bt_login?.classList.remove('btn-disable');
+    this.field_span_pass?.classList.add('btn-hidden');
+    this.field_span_user?.classList.add('btn-hidden');
   }
 }
