@@ -8,7 +8,7 @@ spring:
       password: ${SECURITY-CONFIG-SERVER-PASS}
       fail-fast: true
   profiles:
-    active: dev
+    active: ${PROFILE_CONFIG_SERVER}
 management:
   endpoints:
     web:
