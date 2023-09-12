@@ -1,0 +1,11 @@
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    configUrl: /api/v3/api-docs/swagger-config
+    url: /api/v3/api-docs
+    urls:
+      - name: api-authentication
+        url: /authentication/v3/api-docs
+      - name: api-users
+        url: /users/v3/api-docs

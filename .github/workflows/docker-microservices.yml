@@ -1,0 +1,35 @@
+name: Docker Build Microservices
+on:
+  push:
+    branches:
+      - '*'
+    paths:
+      - 'app/app-api/**'
+      - 'app/app-ui/**'
+      - '.github/**'
+  workflow_dispatch:
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  pre-build:
+    name: Prepare Metadata Pipeline
+    runs-on: ubuntu-latest
+    outputs:
+      build_nr: ${{ steps.build_id.outputs.build_nr }}
+      env_name: ${{ steps.branch_id.outputs.env_name }}
+    steps:
+      - id: build_id
+        run: echo "build_nr=$BUILD_ID" >> $GITHUB_OUTPUT
+      - id: branch_id
+        run: echo "env_name=$BUILD_ID" >> $GITHUB_OUTPUT
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: pre-build
+    steps:
+      - env:
+          OUTPUT1: ${{needs.pre-build.outputs.build_nr}}
+          OUTPUT2: ${{needs.pre-build.outputs.env_name}}
+        run: echo "$OUTPUT1 $OUTPUT2"
+      

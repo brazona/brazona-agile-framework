@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/profile/schema.sql
+  - include:
+      file: db/profile/data.sql
+  - include:
+      file: db/users/schema.sql
+  - include:
+      file: db/users/data.sql

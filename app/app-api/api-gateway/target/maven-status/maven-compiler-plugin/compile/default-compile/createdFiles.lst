@@ -1,0 +1,3 @@
+br\brazona\apigateway\config\security\AppConfig.class
+br\brazona\apigateway\config\security\ResourceServerConfig.class
+br\brazona\apigateway\ApiGatewayApplication.class

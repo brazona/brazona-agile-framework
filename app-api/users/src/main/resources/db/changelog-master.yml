@@ -1,5 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/schema.sql
-  - include:
-      file: db/data.sql
