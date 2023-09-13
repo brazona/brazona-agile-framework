@@ -48,7 +48,7 @@ jobs:
           java-version: '11'
 
       - name: Build with Maven
-        run: mvn -f ./app/app-api/ -B clean package
+        run: mvn -f ./app/app-api/ clean install
   build:
     name: Build and Push Docker image 
     runs-on: ubuntu-latest
@@ -72,7 +72,36 @@ jobs:
 
       - name: Config Server Build and Push
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        env:
+          MICROSERVICES_NAME: config-server
         with:
-          context: ./app/app-api/config-server
+          context: ./app/app-api/${{ env.MICROSERVICES_NAME }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/config-server:${{needs.pre-build.outputs.build_nr}}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.MICROSERVICES_NAME }}:${{needs.pre-build.outputs.build_nr}}
+
+      - name: Eureka Server Build and Push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        env:
+          MICROSERVICES_NAME: eureka-server
+        with:
+          context: ./app/app-api/${{ env.MICROSERVICES_NAME }}
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.MICROSERVICES_NAME }}:${{needs.pre-build.outputs.build_nr}}
+
+      - name: Api Gateway Build and Push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        env:
+          MICROSERVICES_NAME: api-gateway
+        with:
+          context: ./app/app-api/${{ env.MICROSERVICES_NAME }}
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.MICROSERVICES_NAME }}:${{needs.pre-build.outputs.build_nr}}
+
+      - name: Authentication Build and Push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        env:
+          MICROSERVICES_NAME: authentication
+        with:
+          context: ./app/app-api/${{ env.MICROSERVICES_NAME }}
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.MICROSERVICES_NAME }}:${{needs.pre-build.outputs.build_nr}}
