@@ -12,26 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       build_nr: ${{ steps.build_id.outputs.build_nr }}
+      env_name: ${{ steps.env_name.outputs.name }}
     steps:
       - name: Extracts value from the build pipeline
         id: build_id
         run: echo "build_nr=${{github.run_number}}" >> $GITHUB_OUTPUT
-      - name: Sets the environment Teste
-        shell: bash
+      - name: Extracts value from the build pipeline
+        id: env_name
         run: |
-          unset ${{env.ENVIRONMENT}}
-          echo "dev" >> ${{env.ENVIRONMENT}}
-          $ENVIRONMENT="dev"
-          echo ${{env.ENVIRONMENT}}
-      - name: Sets the environment Development
-        if: ${{ contains(github.head_ref, 'develop')}}
-        run: $ENVIRONMENT = "dev"
-      - name: Sets the environment Stagging
-        if: ${{ contains(github.head_ref, 'release')}}
-        run: echo "stagging" >> $ENVIRONMENT
-      - name: Sets the environment Production
-        if: ${{ contains(github.head_ref, 'main')}}
-        run: echo "Production" >> $ENVIRONMENT
+          if [ $github.head_ref == develop ]
+          then
+            echo "name=dev" >> $GITHUB_OUTPUT
+          if [ $github.head_ref == main ]
+          then
+            echo "name=production" >> $GITHUB_OUTPUT
+          else
+            echo "name=dev" >> $GITHUB_OUTPUT
+          fi
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
@@ -40,6 +37,6 @@ jobs:
     steps:
       - env:
           OUTPUT1: ${{needs.pre-build.outputs.build_nr}}
-          OUTPUT3: ${{ github.ref == 'refs/heads/main' && 'value_for_main_branch' || 'value_for_other_branches' }}
-        run: echo "$OUTPUT1 $OUTPUT2"
+          OUTPUT2: ${{needs.pre-build.outputs.env_name}}
+        run: echo "$OUTPUT1 $OUTPUT2 $ENVIRONMENT"
       
