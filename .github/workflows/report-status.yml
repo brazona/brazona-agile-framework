@@ -25,12 +25,12 @@ jobs:
         id: message_body
         run: |
           STATUS='Status: '${{inputs.status}}
-          BREAKLINE='\n'
-          NEWLINE='--------------------------------'
+          BREAKLINE=$'\n'
+          NEWLINE=$'--------------------------------'
           BODY="Report Status: 
-            ${{inputs.title}}${NEWLINE}${BREAKLINE}
-            ${STATUS}${NEWLINE}${BREAKLINE}
-            ${{inputs.badge}}${NEWLINE}${BREAKLINE}
+            ${{inputs.title}}${BREAKLINE}${NEWLINE}
+            ${STATUS}${BREAKLINE}
+            ${{inputs.badge}}${BREAKLINE}
             ${{inputs.message}}${BREAKLINE}
             ${{github.run_number}}${BREAKLINE}
             ${{github.sha}}${BREAKLINE}"
