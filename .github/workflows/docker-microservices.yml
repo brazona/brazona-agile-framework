@@ -17,7 +17,10 @@ jobs:
         id: build_id
         run: echo "build_nr=${{github.run_number}}" >> $GITHUB_OUTPUT
       - name: Sets the environment Teste
-        run: echo "dev" >> $ENVIRONMENT
+        run: |
+          uset $ENVIRONMENT
+          echo "dev" >> $ENVIRONMENT
+          echo $ENVIRONMENT
       - name: Sets the environment Development
         if: ${{ contains(github.head_ref, 'develop')}}
         run: $ENVIRONMENT = "dev"
