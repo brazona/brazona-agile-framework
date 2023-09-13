@@ -52,7 +52,9 @@ jobs:
   build:
     name: Build and Push Docker image 
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      packages: write
     environment:
       name: ${{needs.pre-build.outputs.env_name}}
     needs: [pre-build, compile]
@@ -67,15 +69,16 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.TOKEN_GITHUB }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: |
-            ghcr.io/${{ github.repository }}
+            ${{ env.REGISTRY }}/${{ github.repository }}
       
       - name: Config Server Build and Push
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
