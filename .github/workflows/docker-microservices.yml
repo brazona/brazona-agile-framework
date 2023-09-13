@@ -33,11 +33,21 @@ jobs:
       - name: Extracts value from the build pipeline
         id: env_id
         run: echo "env_name=$ENVIRONMENT" >> $GITHUB_OUTPUT
-  compile:
-    name: Compile Files Application
+  build:
+    name: Build and Push Docker image 
     runs-on: ubuntu-latest
     permissions: write-all
+    environment:
+      name: ${{needs.pre-build.outputs.env_name}}
+    needs: [pre-build]
     steps:
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+          
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -49,16 +59,6 @@ jobs:
 
       - name: Build with Maven
         run: mvn -f ./app/app-api/ clean install
-  build:
-    name: Build and Push Docker image 
-    runs-on: ubuntu-latest
-    permissions: write-all
-    environment:
-      name: ${{needs.pre-build.outputs.env_name}}
-    needs: [pre-build, compile]
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
 
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
