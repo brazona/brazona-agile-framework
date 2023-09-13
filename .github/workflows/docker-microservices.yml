@@ -21,13 +21,13 @@ jobs:
         id: env_name
         run: |
           case ${{github.head_ref}} in
-          "develop")
+          develop)
                 echo "name=dev" >> $GITHUB_OUTPUT
                 ;;
-          "main")
+          main)
                 echo "name=production" >> $GITHUB_OUTPUT
                 ;;
-          "feature/Módulo_Autentication_-_Login#1")
+          feature/Módulo_Autentication_-_Login#1)
                 echo "name=dev" >> $GITHUB_OUTPUT
                 ;;
           esac
