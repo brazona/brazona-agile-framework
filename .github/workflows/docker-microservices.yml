@@ -5,40 +5,34 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  ENVIRONMENT: development
+  ENVIRONMENT: |-
+    ${{
+       github.ref_name == 'master' && 'production'
+    || github.ref_name == 'dev'    && 'dev'
+    ||                                'staging'
+    }}
 jobs:
   pre-build:
     name: Prepare Metadata Pipeline
     runs-on: ubuntu-latest
     outputs:
       build_nr: ${{ steps.build_id.outputs.build_nr }}
-      env_name: ${{ steps.env_name.outputs.name }}
     steps:
       - name: Extracts value from the build pipeline
         id: build_id
         run: echo "build_nr=${{github.run_number}}" >> $GITHUB_OUTPUT
-      - name: Extracts value from the build pipeline
-        id: env_name
-        run: |
-          case ${{github.head_ref}} in
-          develop)
-                echo "name=dev" >> $GITHUB_OUTPUT
-                ;;
-          main)
-                echo "name=production" >> $GITHUB_OUTPUT
-                ;;
-          feature/Módulo_Autentication_-_Login#1)
-                echo "name=dev" >> $GITHUB_OUTPUT
-                ;;
-          esac
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    environment: env.ENVIRONMENT
+    environment: |-
+      ${{
+         github.ref_name == 'master' && 'production'
+      || github.ref_name == 'dev'    && 'dev'
+      ||                                'staging'
+      }}
     needs: pre-build
     steps:
       - env:
           OUTPUT1: ${{needs.pre-build.outputs.build_nr}}
-          OUTPUT2: ${{needs.pre-build.outputs.env_name}}
-        run: echo "$OUTPUT1 $OUTPUT2 $ENVIRONMENT"
+        run: echo "$OUTPUT1 $ENVIRONMENT"
       
