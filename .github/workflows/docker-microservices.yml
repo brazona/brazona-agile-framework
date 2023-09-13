@@ -20,15 +20,17 @@ jobs:
       - name: Extracts value from the build pipeline
         id: env_name
         run: |
-          if [ $github.head_ref == develop ]
-          then
-            echo "name=dev" >> $GITHUB_OUTPUT
-          if [ $github.head_ref == main ]
-          then
-            echo "name=production" >> $GITHUB_OUTPUT
-          else
-            echo "name=dev" >> $GITHUB_OUTPUT
-          fi
+          case $github.head_ref in
+          "develop")
+                echo "name=dev" >> $GITHUB_OUTPUT
+                ;;
+          "main")
+                echo "name=production" >> $GITHUB_OUTPUT
+                ;;
+          "feature/Módulo_Autentication_-_Login#1")
+                echo "name=dev" >> $GITHUB_OUTPUT
+                ;;
+          esac
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
