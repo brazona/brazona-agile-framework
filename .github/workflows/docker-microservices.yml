@@ -20,7 +20,7 @@ jobs:
       - name: Extracts value from the build pipeline
         id: env_name
         run: |
-          case $github.head_ref in
+          case ${{github.head_ref}} in
           "develop")
                 echo "name=dev" >> $GITHUB_OUTPUT
                 ;;
