@@ -14,9 +14,9 @@ jobs:
       env_name: ${{ steps.branch_id.outputs.env_name }}
     steps:
       - id: build_id
-        run: echo "build_nr=$BUILD_ID" >> $GITHUB_OUTPUT
+        run: echo "build_nr=1" >> $GITHUB_OUTPUT
       - id: branch_id
-        run: echo "env_name=$BUILD_ID" >> $GITHUB_OUTPUT
+        run: echo "env_name=2" >> $GITHUB_OUTPUT
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
