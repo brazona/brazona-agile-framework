@@ -24,10 +24,10 @@ jobs:
       - name: Extracts value from the build pipeline
         id: message_body
         run: |
-          STATUS='Status: '${{inputs.status}}
+          STATUS=$'Status: ${{inputs.status}}'
           BREAKLINE=$'\n'
           NEWLINE=$'--------------------------------'
-          BODY="Report Status: 
+          BODY=$"Report Status: 
             ${{inputs.title}}${BREAKLINE}${NEWLINE}
             ${STATUS}${BREAKLINE}
             ${{inputs.badge}}${BREAKLINE}
