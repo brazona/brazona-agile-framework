@@ -1,6 +1,0 @@
-br\brazona\users\config\AppConfig.class
-br\brazona\users\UserApplication.class
-br\brazona\users\controllers\UserResource.class
-br\brazona\users\models\RoleModel.class
-br\brazona\users\models\UserModel.class
-br\brazona\users\repositories\UserRepository.class
