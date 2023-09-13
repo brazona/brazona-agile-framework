@@ -49,9 +49,7 @@ jobs:
   build:
     name: Build and Push Docker image 
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+    permissions: write-all
     environment: $ENVIRONMENT
     needs: [pre-build, compile]
     steps:
