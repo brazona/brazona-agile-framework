@@ -5,11 +5,19 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  IMAGE_TYPE: |-
+    ${{
+       github.ref_name == 'main' && ''
+    || github.ref_name == 'develop'    && 'SNAPSHOT'
+    || github.ref_name == 'release'    && 'RELEASE'
+    ||                                'SNAPSHOT'
+    }}
   ENVIRONMENT: |-
     ${{
-       github.ref_name == 'master' && 'production'
-    || github.ref_name == 'dev'    && 'dev'
-    ||                                'staging'
+        github.ref_name == 'main' && 'production'
+    || github.ref_name == 'develop'    && 'development'
+    || github.ref_name == 'release'    && 'staging'
+    ||                                'implementation'
     }}
 jobs:
   pre-build:
@@ -20,19 +28,13 @@ jobs:
     steps:
       - name: Extracts value from the build pipeline
         id: build_id
-        run: echo "build_nr=${{github.run_number}}" >> $GITHUB_OUTPUT
+        run: echo "build_nr=${{github.run_number}}-$IMAGE_TYPE" >> $GITHUB_OUTPUT
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    environment: |-
-      ${{
-         github.ref_name == 'master' && 'production'
-      || github.ref_name == 'dev'    && 'dev'
-      ||                                'staging'
-      }}
+    environment: $ENVIRONMENT
     needs: pre-build
     steps:
       - env:
           OUTPUT1: ${{needs.pre-build.outputs.build_nr}}
         run: echo "$OUTPUT1 $ENVIRONMENT"
-      
