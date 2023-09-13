@@ -19,7 +19,7 @@ jobs:
       - name: Sets the environment Teste
         shell: bash
         run: |
-          uset $ENVIRONMENT
+          unset $ENVIRONMENT
           echo "dev" >> $ENVIRONMENT
           echo $ENVIRONMENT
       - name: Sets the environment Development
