@@ -30,7 +30,7 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    environment: env.ENVIRONMENT
+    environment: $ENVIRONMENT
     needs: pre-build
     steps:
       - env:
