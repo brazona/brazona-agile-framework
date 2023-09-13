@@ -5,25 +5,36 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  ENVIRONMENT: development
 jobs:
   pre-build:
     name: Prepare Metadata Pipeline
     runs-on: ubuntu-latest
     outputs:
       build_nr: ${{ steps.build_id.outputs.build_nr }}
-      env_name: ${{ steps.branch_id.outputs.env_name }}
     steps:
-      - id: build_id
+      - name: Extracts value from the build pipeline
+        id: build_id
         run: echo "build_nr=${{github.run_number}}" >> $GITHUB_OUTPUT
-      - id: branch_id
-        run: echo "env_name=${{github.ref}}" >> $GITHUB_OUTPUT
+      - name: Sets the environment Teste
+        run: $ENVIRONMENT = "dev"
+      - name: Sets the environment Development
+        if: ${{ contains(github.head_ref, 'develop')}}
+        run: $ENVIRONMENT = "dev"
+      - name: Sets the environment Stagging
+        if: ${{ contains(github.head_ref, 'release')}}
+        run: echo "stagging" >> $ENVIRONMENT
+      - name: Sets the environment Production
+        if: ${{ contains(github.head_ref, 'main')}}
+        run: echo "Production" >> $ENVIRONMENT
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    environment: env.ENVIRONMENT
     needs: pre-build
     steps:
       - env:
           OUTPUT1: ${{needs.pre-build.outputs.build_nr}}
-          OUTPUT2: ${{needs.pre-build.outputs.env_name}}
+          OUTPUT3: ${{ github.ref == 'refs/heads/main' && 'value_for_main_branch' || 'value_for_other_branches' }}
         run: echo "$OUTPUT1 $OUTPUT2"
       
