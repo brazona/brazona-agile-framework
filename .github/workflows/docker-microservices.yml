@@ -19,9 +19,9 @@ jobs:
       - name: Sets the environment Teste
         shell: bash
         run: |
-          unset $ENVIRONMENT
-          echo "dev" >> $ENVIRONMENT
-          echo $ENVIRONMENT
+          unset ${{env.ENVIRONMENT}}
+          echo "dev" >> ${{env.ENVIRONMENT}}
+          echo ${{env.ENVIRONMENT}}
       - name: Sets the environment Development
         if: ${{ contains(github.head_ref, 'develop')}}
         run: $ENVIRONMENT = "dev"
@@ -34,7 +34,7 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    environment: $ENVIRONMENT
+    environment: env.ENVIRONMENT
     needs: pre-build
     steps:
       - env:
