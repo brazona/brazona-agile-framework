@@ -1,12 +1,6 @@
-name: Docker Build Microservices
+name: Publish Docker Image Microservices
 on:
   push:
-    branches:
-      - '*'
-    paths:
-      - 'app/app-api/**'
-      - 'app/app-ui/**'
-      - '.github/**'
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
