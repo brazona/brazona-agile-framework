@@ -24,22 +24,16 @@ jobs:
       - name: Extracts value from the build pipeline
         id: message_body
         run: |
-          TITLE=${{inputs.title}}
           STATUS='Status: '${{inputs.status}}
-          BADGE=${{inputs.badge}}
-          MESSAGE=${{inputs.message}}
-          NUMBER=${{github.run_number}}
-          SHA=${{github.sha}}
-          BREAKLINE=$'\n'
-          NEWLINE=$'--------------------------------'
-
+          BREAKLINE='\n'
+          NEWLINE='--------------------------------'
           BODY="Report Status: 
-            ${TITLE}${NEWLINE}${BREAKLINE}
+            ${{inputs.title}}${NEWLINE}${BREAKLINE}
             ${STATUS}${NEWLINE}${BREAKLINE}
-            ${BADGE}${NEWLINE}${BREAKLINE}
-            ${MESSAGE}${BREAKLINE}
-            ${NUMBER}${BREAKLINE}
-            ${SHA}${BREAKLINE}"
+            ${{inputs.badge}}${NEWLINE}${BREAKLINE}
+            ${{inputs.message}}${BREAKLINE}
+            ${{github.run_number}}${BREAKLINE}
+            ${{github.sha}}${BREAKLINE}"
           echo "body=$BODY" >> $GITHUB_OUTPUT
   report:
     name: Report Build and Push Docker image 
