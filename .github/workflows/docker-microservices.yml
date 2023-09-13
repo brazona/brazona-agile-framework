@@ -21,6 +21,7 @@ jobs:
         run: |
           unset ${{env.ENVIRONMENT}}
           echo "dev" >> ${{env.ENVIRONMENT}}
+          $ENVIRONMENT="dev"
           echo ${{env.ENVIRONMENT}}
       - name: Sets the environment Development
         if: ${{ contains(github.head_ref, 'develop')}}
