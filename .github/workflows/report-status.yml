@@ -1,0 +1,72 @@
+name: Report Status Pipeline
+on:
+  workflow_call:
+    inputs:
+      title:
+        required: true
+        type: string
+      status:
+        required: true
+        type: string
+      message:
+        required: true
+        type: string
+      badge:
+        required: true
+        type: string
+jobs:
+  pre-report:
+    name: Prepare Metadata Pipeline
+    runs-on: ubuntu-latest
+    outputs:
+      body: ${{ steps.message_body.outputs.body }}
+    steps:
+      - name: Extracts value from the build pipeline
+        id: message_body
+        run: |
+          TITLE=${{inputs.title}}
+          STATUS='Status: '${{inputs.status}}
+          BADGE=${{inputs.badge}}
+          MESSAGE=${{inputs.message}}
+          NUMBER=${{github.run_number}}
+          SHA=${{github.sha}}
+          BREAKLINE=$'\n'
+          NEWLINE=$'--------------------------------'
+
+          BODY="Report Status: 
+            ${TITLE}${NEWLINE}${BREAKLINE}
+            ${STATUS}${NEWLINE}${BREAKLINE}
+            ${BADGE}${NEWLINE}${BREAKLINE}
+            ${MESSAGE}${BREAKLINE}
+            ${NUMBER}${BREAKLINE}
+            ${SHA}${BREAKLINE}"
+          echo "body=$BODY" >> $GITHUB_OUTPUT
+  report:
+    name: Report Build and Push Docker image 
+    runs-on: ubuntu-latest
+    needs: [pre-report]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Report Pipeline Docker Microservices
+      uses: Sibz/github-status-action@v1
+      with: 
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'Publish Docker Image Microservices'
+        description: 'Passed'
+        state: 'success'
+        sha: ${{github.event.pull_request.head.sha || github.sha}}
+
+    - name: Commit and push the coverage badges and summary file
+      if: ${{ github.event_name != 'pull_request' }}
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git commit -m "${{needs.pre-report.outputs.body}}"
+        git push
+    - name: Comment on PR with coverage percentages
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        gh pr comment ${{github.event.pull_request.number}} -b ${{needs.pre-report.outputs.body}}
+      continue-on-error: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
