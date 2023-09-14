@@ -5,10 +5,9 @@ on:
       - 'main'
       - 'releases/**'
       - 'develop'
-    paths:
-      - 'app/**'
     paths-ignore:
       - 'app/resources/**'
+      - 'release/**'
   workflow_dispatch:
 env:
   ISBUILD: false
