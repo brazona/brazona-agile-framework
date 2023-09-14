@@ -21,10 +21,19 @@ jobs:
     outputs:
       body: ${{ steps.message_body.outputs.body }}
     steps:
-      - name: Extracts value from the build pipeline
-        id: message_body
+      - name: Comment on PR with coverage percentages
+        run: |
+          REPORT=$'\n'
+          COVERAGE=$(1)%
+          BRANCHES=$(2)%
+          NEWLINE=$'\n'
+          BODY_EXAMPLE="## JaCoCo Test Coverage Summary Statistics${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
+          echo $BODY_EXAMPLE
+          
+      - name: Message construction
         run: |
           BREAKLINE=$'\n'
+          NEWLINE=$'\n'
           NEWLINE=$'--------------------------------'
           BODY=$"Report Status: 
             ${{inputs.title}}${BREAKLINE}${NEWLINE}
@@ -33,6 +42,10 @@ jobs:
             ${{inputs.message}}${BREAKLINE}
             ${{github.run_number}}${BREAKLINE}
             ${{github.sha}}${BREAKLINE}"
+
+      - name: Extracts value from the build pipeline
+        id: message_body
+        run: |
           echo "body=$BODY" >> $GITHUB_OUTPUT
   report:
     name: Report Build and Push Docker image 
