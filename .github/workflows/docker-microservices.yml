@@ -1,7 +1,14 @@
 name: Publish Docker Image Microservices
 on:
-  push:
   pull_request:
+    branches:
+      - 'main'
+      - 'releases/**'
+      - 'develop'
+    paths:
+      - 'app/**'
+    paths-ignore:
+      - 'app/resources/**'
   workflow_dispatch:
 env:
   ISBUILD: false
@@ -127,14 +134,14 @@ jobs:
           context: ./app/${{ env.MICROSERVICES_NAME }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.MICROSERVICES_NAME }}:${{needs.pre-build.outputs.build_nr}}
-  call-workflow-report-status:
-    needs: [build]
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: ./.github/workflows/report-status.yml   
-    with:
-      title: Publish Docker Image Microservices
-      status: ${{ github.job.status }}
-      message: "pipeline: The build and publish pipeline has been executed."
-      badge: "[![Publish Docker Image Microservices](https://github.com/brazona/brazona-agile-framework/actions/workflows/docker-microservices.yml/badge.svg)](https://github.com/brazona/brazona-agile-framework/actions/workflows/docker-microservices.yml)"
+  #call-workflow-report-status:
+  #  needs: [build]
+  #  permissions:
+  #    contents: read
+  #    pull-requests: write
+  #  uses: ./.github/workflows/report-status.yml   
+  #  with:
+  #    title: Publish Docker Image Microservices
+  #    status: ${{ github.job.status }}
+  #    message: "pipeline: The build and publish pipeline has been executed."
+  #    badge: "[![Publish Docker Image Microservices](https://github.com/brazona/brazona-agile-framework/actions/workflows/docker-microservices.yml/badge.svg)](https://github.com/brazona/brazona-agile-framework/actions/workflows/docker-microservices.yml)"
