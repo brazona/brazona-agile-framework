@@ -21,7 +21,7 @@ jobs:
     outputs:
       body: ${{ steps.message_body.outputs.body }}
     steps:
-      - name: Comment on PR with coverage percentages
+      - name: Message construction ( sample test )
         run: |
           BODY_EXAMPLE="## JaCoCo Test Coverage Summary Statistics"
           echo $BODY_EXAMPLE
@@ -37,34 +37,24 @@ jobs:
             ${{inputs.message}}${BREAKLINE}
             ${{github.run_number}}${BREAKLINE}
             ${{github.sha}}${BREAKLINE}"
-
+          echo $BODY
       - name: Extracts value from the build pipeline
         id: message_body
         run: |
           echo "body=$BODY" >> $GITHUB_OUTPUT
   report:
-    name: Report Build and Push Docker image 
+    name: Status and Report Publication 
     runs-on: ubuntu-latest
     needs: [pre-report]
     steps:
-    - uses: actions/checkout@v2
-    - name: Report Pipeline Docker Microservices
-      uses: Sibz/github-status-action@v1
-      with: 
-        authToken: ${{secrets.GITHUB_TOKEN}}
-        context: 'Publish Docker Image Microservices'
-        description: 'Passed'
-        state: 'success'
-        sha: ${{github.event.pull_request.head.sha || github.sha}}
-
-    - name: Commit and push the coverage badges and summary file
+    - name: Commit and push
       if: ${{ github.event_name != 'pull_request' }}
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
         git commit -m "${{needs.pre-report.outputs.body}}"
         git push
-    - name: Comment on PR with coverage percentages
+    - name: Comment on PR
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         gh pr comment ${{github.event.pull_request.number}} -b ${{needs.pre-report.outputs.body}}

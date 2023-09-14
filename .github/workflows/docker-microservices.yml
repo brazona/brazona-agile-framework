@@ -4,6 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
 env:
+  ISBUILD: false
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   IMAGE_TYPE: |-
@@ -27,15 +28,20 @@ jobs:
     outputs:
       build_nr: ${{ steps.build_id.outputs.build_nr }}
       env_name: ${{ steps.env_id.outputs.env_name }}
+      is_build: ${{ steps.is_build.outputs.is_build }}
     steps:
-      - name: Extracts value from the build pipeline
+      - name: Extracts value Build Id
         id: build_id
         run: echo "build_nr=${{github.run_number}}-$IMAGE_TYPE" >> $GITHUB_OUTPUT
-      - name: Extracts value from the build pipeline
+      - name: Extracts value Environment
         id: env_id
         run: echo "env_name=$ENVIRONMENT" >> $GITHUB_OUTPUT
+      - name: Extracts value Is Build?
+        id: is_build
+        run: echo "is_build=$ISBUILD" >> $GITHUB_OUTPUT
   build:
     name: Build and Push Docker image 
+    if: ${{needs.pre-build.outputs.is_build}}
     runs-on: ubuntu-latest
     permissions: write-all
     environment:
