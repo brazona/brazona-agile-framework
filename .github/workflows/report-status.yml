@@ -23,13 +23,8 @@ jobs:
     steps:
       - name: Comment on PR with coverage percentages
         run: |
-          REPORT=$'\n'
-          COVERAGE=$(1)%
-          BRANCHES=$(2)%
-          NEWLINE=$'\n'
-          BODY_EXAMPLE="## JaCoCo Test Coverage Summary Statistics${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
+          BODY_EXAMPLE="## JaCoCo Test Coverage Summary Statistics"
           echo $BODY_EXAMPLE
-          
       - name: Message construction
         run: |
           BREAKLINE=$'\n'
