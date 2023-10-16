@@ -1,0 +1,12 @@
+#bootstrap.yml
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: jdbc
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: "SELECT properties.key, properties.value from properties where application=? or application='default' and profile=? and label=?"
+          order: 1

@@ -1,0 +1,50 @@
+#application.yml
+server:
+  port: '8888'
+spring:
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: 'false'
+  security:
+    user:
+      name: ${SECURITY-CONFIG-SERVER-USER}
+      password: ${SECURITY-CONFIG-SERVER-PASS}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    url: ${JDBC_CONNECT}
+    password: ${POSTGRES_PASSWORD}
+  liquibase:
+    url: ${JDBC_CONNECT}
+    password: ${POSTGRES_PASSWORD}
+    user: ${POSTGRES_USER}
+    change-log: classpath:db/changelog-master.yml
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+        temp:
+          use_jdbc_metadata_defaults: 'false'
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: none
+encrypt:
+  key: ${SECURITY-CONFIG-SERVER-ENCRYPT}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+eureka:
+  client:
+    fetch-registry: 'false'
+    register-with-eureka: 'false'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
