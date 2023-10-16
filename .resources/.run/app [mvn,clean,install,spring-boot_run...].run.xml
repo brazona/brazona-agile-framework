@@ -10,34 +10,26 @@
           </option>
           <option name="goals">
             <list>
-              <option value="mvn" />
               <option value="clean" />
               <option value="install" />
               <option value="spring-boot:run" />
               <option value="-pl" />
               <option value="config-server" />
-              <option value="&amp;" />
-              <option value="mvn" />
               <option value="clean" />
               <option value="install" />
               <option value="spring-boot:run" />
               <option value="-pl" />
               <option value="eureka-server" />
-              <option value="&amp;" />
-              <option value="mvn" />
-              <option value="clean" />
-              <option value="install" />
-              <option value="spring-boot:run" />
-              <option value="-pl" />
-              <option value="api-gateway" />
             </list>
           </option>
           <option name="pomFileName" />
           <option name="profilesMap">
-            <map />
+            <map>
+              <entry key="local" value="true" />
+            </map>
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/app-api" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>

@@ -9,3 +9,6 @@ Api-gateway
 
 60a3488a-eb6a-4359-9a33-762e972229ac
 authentication-server
+
+GITHUB_ACTION_BRAZONA_AGILE_FRAMEWORK
+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
